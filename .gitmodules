@@ -1,0 +1,3 @@
+[submodule "taiga"]
+	path = taiga
+	url = https://github.com/erengy/taiga.git
