@@ -32,7 +32,7 @@ jobs:
         run: devenv taiga\project\vs2022\Taiga.sln /Build "Release|x86"
 
       - name: Build installer
-        run: "%ProgramFiles(x86)%\NSIS\makensis.exe" /DMACHINE=x86 taiga\setup\Taiga.nsi
+        run: "%ProgramFiles(x86)%\\NSIS\makensis.exe" /DMACHINE=x86 taiga\setup\Taiga.nsi
 
       - name: list directory
         run: ls taiga
