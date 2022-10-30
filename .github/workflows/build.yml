@@ -27,3 +27,12 @@ jobs:
 
       - name: Build dependencies
         run: .\taiga\deps\build.bat
+
+      - name: Build Taiga
+        run: devenv taiga\project\vs2022\Taiga.sln /Build "Release|x86"
+
+      - name: Build installer
+        run: "%ProgramFiles(x86)%\NSIS\makensis.exe" /DMACHINE=x86 taiga\setup\Taiga.nsi
+
+      - name: list directory
+        run: ls taiga
