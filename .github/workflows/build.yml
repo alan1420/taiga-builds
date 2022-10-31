@@ -36,13 +36,9 @@ jobs:
         run: "\"%ProgramFiles(x86)%\\NSIS\\makensis.exe\" /DMACHINE=x86 taiga\\setup\\Taiga.nsi"
         shell: cmd
 
-      - name: list directory
-        run: ls taiga
-      
       - uses: actions/upload-artifact@v3
         name: Uploading artifact
         with:
           name: build
           path: |
-            taiga/bin
-            taiga/build
+            taiga/bin/x86
