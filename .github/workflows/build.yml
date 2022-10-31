@@ -38,3 +38,11 @@ jobs:
 
       - name: list directory
         run: ls taiga
+      
+      - uses: actions/upload-artifact@v3
+        name: Uploading artifact
+        with:
+          name: build
+          path: |
+            taiga/bin
+            taiga/build
