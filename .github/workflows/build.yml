@@ -48,17 +48,17 @@ jobs:
         run: Get-Content -Path taiga\src\taiga\config.h
 
       - name: Build Taiga
-        run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=x64
+        run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=x86
 
       - name: Build installer
-        run: makensis /DMACHINE=x64 "taiga\setup\Taiga.nsi"
+        run: makensis /DMACHINE=x86 "taiga\setup\Taiga.nsi"
 
       - uses: actions/upload-artifact@v3
         name: Uploading artifact
         with:
           name: build
           path: |
-            taiga/bin/x64/TaigaSetup.exe
+            taiga/bin/x86/TaigaSetup.exe
 
   # publish:
   #   runs-on: ubuntu-latest
