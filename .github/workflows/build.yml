@@ -33,7 +33,7 @@ jobs:
         shell: cmd
 
       - name: Build installer
-        run: "\"%ProgramFiles(x86)%\\NSIS\\makensis.exe\" \/DMACHINE=x86 taiga\\setup\\Taiga.nsi"
+        run: "\"%ProgramFiles(x86)%\\NSIS\\makensis.exe\" /DMACHINE=x86 taiga\\setup\\Taiga.nsi"
         shell: cmd
 
       - name: list directory
