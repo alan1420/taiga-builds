@@ -41,7 +41,9 @@ jobs:
         env:
           cache-name: cache-deps-build
         with:
-          path: taiga\build
+          path: |
+            taiga\build
+            taiga\bin\${{ env.arch }}\Release
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.arch }}-${{ hashFiles('taiga\deps\build.bat') }}
 
       - name: Build dependencies
@@ -70,7 +72,7 @@ jobs:
         with:
           name: build
           path: |
-            taiga/bin/$env:arch/TaigaSetup.exe
+            taiga/bin/${{ env.arch }}/TaigaSetup.exe
 
   # publish:
   #   runs-on: ubuntu-latest
