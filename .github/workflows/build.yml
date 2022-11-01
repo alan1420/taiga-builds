@@ -11,6 +11,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  arch: x64
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -39,10 +42,10 @@ jobs:
           cache-name: cache-deps-build
         with:
           path: taiga\build
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('taiga\deps\build.bat') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.arch }}-${{ hashFiles('taiga\deps\build.bat') }}
 
       - name: Build dependencies
-        run: taiga\deps\build.bat
+        run: taiga\deps\build.bat --machine=$env:arch
 
       - name: Put git commit hash in version value
         run: |
@@ -57,17 +60,17 @@ jobs:
         run: Get-Content -Path taiga\src\taiga\config.h
 
       - name: Build Taiga
-        run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=x86
+        run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=$env:arch
 
       - name: Build installer
-        run: makensis /DMACHINE=x86 "taiga\setup\Taiga.nsi"
+        run: makensis /DMACHINE=$env:arch "taiga\setup\Taiga.nsi"
 
       - uses: actions/upload-artifact@v3
         name: Uploading artifact
         with:
           name: build
           path: |
-            taiga/bin/x86/TaigaSetup.exe
+            taiga/bin/$env:arch/TaigaSetup.exe
 
   # publish:
   #   runs-on: ubuntu-latest
