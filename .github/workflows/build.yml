@@ -32,6 +32,15 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
+      - name: Cache dependency build
+        # id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-deps-build
+        with:
+          path: taiga\build
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('taiga\deps\build.bat') }}
+
       - name: Build dependencies
         run: taiga\deps\build.bat
 
