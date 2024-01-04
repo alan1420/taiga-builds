@@ -72,7 +72,7 @@ index 56a985da..438300a5 100644
 @@ -34,7 +34,7 @@
  #define TAIGA_VERSION_MINOR 4
  #define TAIGA_VERSION_PATCH 0
- #define TAIGA_VERSION_PRE   "beta.2"
+ #define TAIGA_VERSION_PRE   ""
 -#define TAIGA_VERSION_BUILD 0
 +#define TAIGA_VERSION_BUILD 0x0
  
