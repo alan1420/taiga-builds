@@ -55,8 +55,8 @@ jobs:
         run: Get-Content -Path taiga\src\taiga\config.h
         
       - name: Setup anew (or from cache) vcpkg (and does not build any package)
-        uses: lukka/run-vcpkg@v11
         working-directory: ./taiga
+        uses: lukka/run-vcpkg@v11
 
       #- name: Build Taiga
        # run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=$env:arch
@@ -65,8 +65,8 @@ jobs:
         #run: makensis /DMACHINE=$env:arch "taiga\setup\Taiga.nsi"
         
       - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
-        uses: lukka/run-cmake@v10
         working-directory: ./taiga
+        uses: lukka/run-cmake@v10
         with:
           configurePreset: 'ninja-multi'
           buildPreset: 'ninja-debug'          
