@@ -35,16 +35,8 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
-      - name: Cache dependency build
-        # id: cache-npm
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-deps-build
-        with:
-          path: |
-            taiga\build
-            taiga\bin\${{ env.arch }}\Release
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.arch }}-${{ hashFiles('taiga\deps\build.bat') }}
+      # Install latest CMake and Ninja.
+      - uses: lukka/get-cmake@latest
 
       - name: Build dependencies
         run: taiga\deps\build.bat --machine=$env:arch
@@ -61,19 +53,31 @@ jobs:
 
       - name: Print config.h
         run: Get-Content -Path taiga\src\taiga\config.h
+        
+      - name: Setup anew (or from cache) vcpkg (and does not build any package)
+        uses: lukka/run-vcpkg@v11
+        working-directory: ./taiga
 
-      - name: Build Taiga
-        run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=$env:arch
+      #- name: Build Taiga
+       # run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=$env:arch
 
-      - name: Build installer
-        run: makensis /DMACHINE=$env:arch "taiga\setup\Taiga.nsi"
+      #- name: Build installer
+        #run: makensis /DMACHINE=$env:arch "taiga\setup\Taiga.nsi"
+        
+      - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
+        uses: lukka/run-cmake@v10
+        working-directory: ./taiga
+        with:
+          configurePreset: 'ninja-multi'
+          buildPreset: 'ninja-debug'          
 
       - uses: actions/upload-artifact@v3
         name: Uploading artifact
         with:
           name: build
           path: |
-            taiga/bin/${{ env.arch }}/TaigaSetup.exe
+             taiga/build/
+       #     taiga/bin/${{ env.arch }}/TaigaSetup.exe
 
   # publish:
   #   runs-on: ubuntu-latest
