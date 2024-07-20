@@ -57,6 +57,8 @@ jobs:
       - name: Setup anew (or from cache) vcpkg (and does not build any package)
         working-directory: ./taiga
         uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: a42af01b72c28a8e1d7b48107b33e4f286a55ef6        
 
       #- name: Build Taiga
        # run: msbuild "taiga\project\vs2022\Taiga.sln" /m /p:Configuration=Release /p:Platform=$env:arch
