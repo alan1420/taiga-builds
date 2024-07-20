@@ -1,5 +1,5 @@
 diff --git a/deps/build.bat b/deps/build.bat
-index d2cb9f9c..e6c0bd1e 100644
+index 779290d8..1c2e563d 100644
 --- a/deps/build.bat
 +++ b/deps/build.bat
 @@ -1,11 +1,11 @@
@@ -66,32 +66,32 @@ index d2cb9f9c..e6c0bd1e 100644
  cd /D %currentdir%
  
 diff --git a/src/taiga/config.h b/src/taiga/config.h
-index 56a985da..438300a5 100644
+index 0e29a88f..3b28ab21 100644
 --- a/src/taiga/config.h
 +++ b/src/taiga/config.h
 @@ -34,7 +34,7 @@
- #define TAIGA_VERSION_MINOR 4
+ #define TAIGA_VERSION_MINOR 0
  #define TAIGA_VERSION_PATCH 0
- #define TAIGA_VERSION_PRE   ""
+ #define TAIGA_VERSION_PRE   "alpha"
 -#define TAIGA_VERSION_BUILD 0
 +#define TAIGA_VERSION_BUILD 0x0
  
- // Used in version.rc
+ // Used in taiga.rc
  #define TAIGA_VERSION_DIGITAL \
 diff --git a/src/taiga/version.cpp b/src/taiga/version.cpp
-index 9f512eaf..af71d53e 100644
+index d11d4e4d..9aaba8cb 100644
 --- a/src/taiga/version.cpp
 +++ b/src/taiga/version.cpp
-@@ -16,6 +16,8 @@
- ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
- 
+@@ -15,7 +15,7 @@
+  * You should have received a copy of the GNU General Public License
+  * along with this program. If not, see <https://www.gnu.org/licenses/>.
+  */
+-
 +#include <fmt/format.h>
-+
- #include "taiga/version.h"
+ #include "version.hpp"
  
  #include "base/preprocessor.h"
-@@ -29,7 +31,7 @@ const semaver::Version& version() {
+@@ -29,7 +29,7 @@ const semaver::Version& version() {
        TAIGA_VERSION_MINOR,
        TAIGA_VERSION_PATCH,
        TAIGA_VERSION_PRE,
